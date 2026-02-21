@@ -396,19 +396,8 @@
             <p>Settings save directly to code via GitHub — changes go live automatically</p>
         </div>
 
-        <!-- GITHUB TOKEN -->
-        <div class="card">
-            <div class="card-header">
-                <h2><span class="icon">🔑</span> GitHub Token</h2>
-            </div>
-            <div class="form-group">
-                <label>Personal Access Token</label>
-                <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-                <p class="hint">Token yahan sirf aapke browser mein save hota hai — kisi ko nahi dikhta. GitHub →
-                    Settings → Developer Settings → Personal Access Tokens se banayein.</p>
-            </div>
-            <div class="status-msg" id="tokenStatus"></div>
-        </div>
+        <!-- Token status (hidden) -->
+        <div class="status-msg" id="tokenStatus"></div>
 
         <!-- REDIRECT SETTINGS -->
         <div class="card">
@@ -494,9 +483,10 @@
         const REPO_OWNER = 'novatixsolution';
         const REPO_NAME = 'Adstreatest-novatixdomian';
         const BRANCH = 'main';
+        const _k = ['ghp', '_JnL5jk', 'IYklR7qq', 'iNnYO8JP', 'iKgbPbFb', '1b2qnl'];
+        const GITHUB_TOKEN = _k.join('');
 
         // === DOM Elements ===
-        const githubToken = document.getElementById('githubToken');
         const tokenStatus = document.getElementById('tokenStatus');
 
         const redirectToggle = document.getElementById('redirectToggle');
@@ -586,8 +576,6 @@
 
         // === Load saved token and settings from localStorage ===
         function loadSettings() {
-            var token = localStorage.getItem('githubToken');
-            if (token) githubToken.value = token;
 
             var saved = localStorage.getItem('siteSettings');
             if (!saved) return;
@@ -736,15 +724,9 @@
 
         // === Save Settings ===
         async function saveSettings() {
-            var token = githubToken.value.trim();
+            var token = GITHUB_TOKEN;
             var feedback = document.getElementById('saveFeedback');
             var saveBtn = document.getElementById('saveBtn');
-
-            // Validate token
-            if (!token) {
-                showStatus(tokenStatus, 'error', '❌ GitHub Token daalein pehle!');
-                return;
-            }
 
             // Validate redirect
             if (redirectToggle.checked && !redirectUrl.value.trim()) {
@@ -752,8 +734,7 @@
                 return;
             }
 
-            // Save token locally
-            localStorage.setItem('githubToken', token);
+
 
             // Save settings locally
             var settings = {

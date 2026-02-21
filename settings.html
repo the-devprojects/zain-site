@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚙️ Site Settings</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a1a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00f0ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* Card */
+        .card {
+            background: #12122a;
+            border: 1px solid #1e1e3a;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            transition: border-color 0.3s;
+        }
+
+        .card:hover {
+            border-color: #2a2a5a;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header h2 .icon {
+            font-size: 22px;
+        }
+
+        /* Toggle Switch */
+        .toggle-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            cursor: pointer;
+        }
+
+        .toggle input {
+            display: none;
+        }
+
+        .toggle .slider {
+            position: absolute;
+            inset: 0;
+            background: #2a2a3a;
+            border-radius: 26px;
+            transition: 0.3s;
+        }
+
+        .toggle .slider::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #555;
+            border-radius: 50%;
+            left: 3px;
+            top: 3px;
+            transition: 0.3s;
+        }
+
+        .toggle input:checked+.slider {
+            background: linear-gradient(135deg, #00f0ff, #8b5cf6);
+        }
+
+        .toggle input:checked+.slider::before {
+            transform: translateX(22px);
+            background: #fff;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="url"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0a0a1a;
+            border: 1px solid #2a2a4a;
+            border-radius: 10px;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #00f0ff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #444;
+        }
+
+        /* Hidden content */
+        .toggle-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s;
+            opacity: 0;
+        }
+
+        .toggle-content.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        /* Preview Box */
+        .preview-box {
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 14px;
+        }
+
+        .preview-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555;
+            padding: 10px 14px 6px;
+            font-weight: 600;
+        }
+
+        .preview-content {
+            padding: 0 14px 14px;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 160px;
+            background: #0a0a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .preview-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-domain {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .preview-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #ccc;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .preview-desc {
+            font-size: 12px;
+            color: #777;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        /* Status Messages */
+        .status-msg {
+            font-size: 12px;
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .status-msg.error {
+            display: block;
+            background: rgba(255, 50, 50, 0.1);
+            border: 1px solid rgba(255, 50, 50, 0.3);
+            color: #ff6b6b;
+        }
+
+        .status-msg.success {
+            display: block;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            color: #00f0ff;
+        }
+
+        .status-msg.warning {
+            display: block;
+            background: rgba(255, 200, 0, 0.08);
+            border: 1px solid rgba(255, 200, 0, 0.2);
+            color: #ffc800;
+        }
+
+        /* Save Button */
+        .save-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00f0ff, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 240, 255, 0.3);
+        }
+
+        .save-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Save feedback */
+        .save-feedback {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .save-feedback.show {
+            opacity: 1;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: #1e1e3a;
+            margin: 18px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .page-header h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <h1>⚙️ Site Settings</h1>
+            <p>Manage redirect and SEO settings for your website</p>
+        </div>
+
+        <!-- REDIRECT SETTINGS -->
+        <div class="card">
+            <div class="card-header">
+                <h2><span class="icon">🔄</span> Redirect</h2>
+                <div class="toggle-wrap">
+                    <span class="toggle-label" id="redirectStatusLabel">OFF</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="redirectToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="toggle-content" id="redirectContent">
+                <div class="form-group">
+                    <label>Redirect URL</label>
+                    <input type="url" id="redirectUrl" placeholder="https://example.com/your-link">
+                </div>
+                <div class="status-msg" id="redirectStatus"></div>
+            </div>
+        </div>
+
+        <!-- SEO SETTINGS -->
+        <div class="card">
+            <div class="card-header">
+                <h2><span class="icon">📝</span> SEO / Meta Tags</h2>
+            </div>
+
+            <div class="form-group">
+                <label>Page Title</label>
+                <input type="text" id="seoTitle" placeholder="Enter page title...">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="seoDescription" placeholder="Enter page description..."></textarea>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Image Section -->
+            <div class="card-header" style="margin-bottom:12px;">
+                <h2 style="font-size:15px;"><span class="icon">🖼️</span> OG Image</h2>
+                <div class="toggle-wrap">
+                    <span class="toggle-label" id="imageStatusLabel">OFF</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="imageToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="toggle-content" id="imageContent">
+                <div class="form-group">
+                    <label>Image URL (direct link to .jpg/.png)</label>
+                    <input type="url" id="seoImage" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="status-msg" id="imageStatus"></div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Preview -->
+            <div class="preview-label">📱 Social Media Preview</div>
+            <div class="preview-box">
+                <div class="preview-image" id="previewImage">
+                    <span>No image</span>
+                </div>
+                <div class="preview-content">
+                    <div class="preview-domain" id="previewDomain">YOUR-SITE.COM</div>
+                    <div class="preview-title" id="previewTitle">Page Title</div>
+                    <div class="preview-desc" id="previewDesc">Page description will appear here...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAVE BUTTON -->
+        <button class="save-btn" id="saveBtn" onclick="saveSettings()">💾 Save Settings</button>
+        <div class="save-feedback" id="saveFeedback"></div>
+    </div>
+
+    <script>
+        // === DOM Elements ===
+        const redirectToggle = document.getElementById('redirectToggle');
+        const redirectContent = document.getElementById('redirectContent');
+        const redirectUrl = document.getElementById('redirectUrl');
+        const redirectStatusLabel = document.getElementById('redirectStatusLabel');
+        const redirectStatus = document.getElementById('redirectStatus');
+
+        const seoTitle = document.getElementById('seoTitle');
+        const seoDescription = document.getElementById('seoDescription');
+        const seoImage = document.getElementById('seoImage');
+
+        const imageToggle = document.getElementById('imageToggle');
+        const imageContent = document.getElementById('imageContent');
+        const imageStatusLabel = document.getElementById('imageStatusLabel');
+        const imageStatus = document.getElementById('imageStatus');
+
+        const previewImage = document.getElementById('previewImage');
+        const previewTitle = document.getElementById('previewTitle');
+        const previewDesc = document.getElementById('previewDesc');
+        const previewDomain = document.getElementById('previewDomain');
+
+        // === Toggle Handlers ===
+        redirectToggle.addEventListener('change', function () {
+            redirectContent.classList.toggle('open', this.checked);
+            redirectStatusLabel.textContent = this.checked ? 'ON' : 'OFF';
+            redirectStatusLabel.style.color = this.checked ? '#00f0ff' : '#888';
+        });
+
+        imageToggle.addEventListener('change', function () {
+            imageContent.classList.toggle('open', this.checked);
+            imageStatusLabel.textContent = this.checked ? 'ON' : 'OFF';
+            imageStatusLabel.style.color = this.checked ? '#00f0ff' : '#888';
+            if (!this.checked) {
+                seoImage.value = '';
+                updatePreview();
+            }
+        });
+
+        // === Live Preview ===
+        seoTitle.addEventListener('input', updatePreview);
+        seoDescription.addEventListener('input', updatePreview);
+        seoImage.addEventListener('input', function () {
+            updatePreview();
+            validateImage(this.value);
+        });
+
+        function updatePreview() {
+            previewTitle.textContent = seoTitle.value || 'Page Title';
+            previewDesc.textContent = seoDescription.value || 'Page description will appear here...';
+
+            const imgUrl = seoImage.value.trim();
+            if (imgUrl) {
+                previewImage.innerHTML = '<img src="' + imgUrl + '" onerror="this.parentElement.innerHTML=\'<span>⚠️ Image load failed</span>\'">';
+            } else {
+                previewImage.innerHTML = '<span>No image</span>';
+            }
+        }
+
+        function validateImage(url) {
+            imageStatus.className = 'status-msg';
+            imageStatus.style.display = 'none';
+
+            if (!url || !url.trim()) return;
+
+            url = url.trim();
+
+            // Check if it's a page URL instead of direct image
+            if (url.includes('unsplash.com/photos/') || url.includes('pinterest.com') || url.includes('instagram.com')) {
+                showStatus(imageStatus, 'warning', '⚠️ Yeh ek webpage ka link hai, direct image URL daalein. Image par right-click → "Copy image address"');
+                return;
+            }
+
+            // Test if image loads
+            const img = new Image();
+            img.onload = function () {
+                showStatus(imageStatus, 'success', '✅ Image valid hai! (' + img.naturalWidth + 'x' + img.naturalHeight + ')');
+            };
+            img.onerror = function () {
+                showStatus(imageStatus, 'error', '❌ Image load nahi ho rahi — check karein ke yeh direct image URL hai (.jpg, .png)');
+            };
+            img.src = url;
+        }
+
+        function showStatus(el, type, msg) {
+            el.className = 'status-msg ' + type;
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        // === Load Saved Settings ===
+        function loadSettings() {
+            const saved = localStorage.getItem('siteSettings');
+            if (!saved) return;
+
+            try {
+                const s = JSON.parse(saved);
+
+                // Redirect
+                if (s.redirectEnabled) {
+                    redirectToggle.checked = true;
+                    redirectContent.classList.add('open');
+                    redirectStatusLabel.textContent = 'ON';
+                    redirectStatusLabel.style.color = '#00f0ff';
+                }
+                if (s.redirectUrl) redirectUrl.value = s.redirectUrl;
+
+                // SEO
+                if (s.seoTitle) seoTitle.value = s.seoTitle;
+                if (s.seoDescription) seoDescription.value = s.seoDescription;
+
+                // Image
+                if (s.imageEnabled) {
+                    imageToggle.checked = true;
+                    imageContent.classList.add('open');
+                    imageStatusLabel.textContent = 'ON';
+                    imageStatusLabel.style.color = '#00f0ff';
+                }
+                if (s.seoImage) seoImage.value = s.seoImage;
+
+                updatePreview();
+            } catch (e) { }
+        }
+
+        // === Save Settings ===
+        function saveSettings() {
+            const settings = {
+                redirectEnabled: redirectToggle.checked,
+                redirectUrl: redirectUrl.value.trim(),
+                seoTitle: seoTitle.value.trim(),
+                seoDescription: seoDescription.value.trim(),
+                imageEnabled: imageToggle.checked,
+                seoImage: imageToggle.checked ? seoImage.value.trim() : ''
+            };
+
+            // Validation
+            if (settings.redirectEnabled && !settings.redirectUrl) {
+                showStatus(redirectStatus, 'error', '❌ Redirect ON hai lekin URL empty hai!');
+                return;
+            }
+
+            localStorage.setItem('siteSettings', JSON.stringify(settings));
+
+            // Show save feedback
+            const feedback = document.getElementById('saveFeedback');
+            feedback.textContent = '✅ Settings saved successfully!';
+            feedback.style.color = '#00f0ff';
+            feedback.classList.add('show');
+            setTimeout(() => feedback.classList.remove('show'), 3000);
+
+            // Clear any error
+            redirectStatus.style.display = 'none';
+        }
+
+        // === Get domain for preview ===
+        try {
+            previewDomain.textContent = window.location.hostname.toUpperCase() || 'YOUR-SITE.COM';
+        } catch (e) { }
+
+        // Load on page ready
+        loadSettings();
+    </script>
+</body>
+
+</html>

@@ -7,29 +7,40 @@
 
     <!-- ============================================ -->
     <!-- SEO SETTINGS - Yahan se title, description aur image change karein -->
-    <!-- Facebook/WhatsApp par link share karne par yeh dikhengi -->
+    <!-- Ya settings.html page se bhi change kar sakte hain -->
     <!-- ============================================ -->
 
-    <title>Pakistani Boys</title>
+    <title></title>
 
-    <meta name="description" content="Pakistan Zindabda ALlah pakistan ko hamesha khsuh rakhay">
+    <meta name="description" content="">
 
-    <meta property="og:title" content="Pakistani Boys">
+    <meta property="og:title" content="">
 
-    <meta property="og:description" content="Pakistan Zindabda ALlah pakistan ko hamesha khsuh rakhay">
+    <meta property="og:description" content="">
 
     <meta property="og:image" content="">
 
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
 
-    <meta name="twitter:title" content="Pakistani Boys">
+    <meta name="twitter:title" content="">
 
-    <meta name="twitter:description" content="Pakistan Zindabda ALlah pakistan ko hamesha khsuh rakhay">
+    <meta name="twitter:description" content="">
 
     <meta name="twitter:image" content="">
 
     <!-- ============================================ -->
+
+    <script>
+        // Settings page se saved data load karein
+        try {
+            var saved = localStorage.getItem('siteSettings');
+            if (saved) {
+                var s = JSON.parse(saved);
+                if (s.seoTitle) document.title = s.seoTitle;
+            }
+        } catch (e) { }
+    </script>
 
     <link href="templatemo-nexus-style.css" rel="stylesheet">
     <!--

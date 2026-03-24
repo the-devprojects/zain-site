@@ -4,7 +4,7 @@
 // Ya settings page se bhi change kar sakte hain
 // ============================================
 
-var redirectURL = "https://whatsapp.com/channel/0029Vb7dInq3AzNKGWMJbP1O"; // <-- Yahan apni link daalein, e.g. "https://google.com"
+var redirectURL = "https://abr.ge/eq9755"; // <-- Yahan apni link daalein, e.g. "https://google.com"
 
 // ============================================
 // REDIRECT LOGIC — Isko change karne ki zaroorat nahi
